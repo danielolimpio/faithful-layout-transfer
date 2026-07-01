@@ -1,5 +1,7 @@
+import { Link } from "@tanstack/react-router";
 import { Facebook, Twitter, Instagram, Youtube, Linkedin, Calendar } from "lucide-react";
 import logo from "@/assets/cebolla-logo.png";
+import { articles } from "@/data/articles";
 
 export function Sidebar() {
   return (
@@ -31,18 +33,17 @@ export function Sidebar() {
         <div className="inline-block cat-badge mb-4">Últimos Posts</div>
         <div className="h-px bg-primary -mt-1 mb-6" />
         <ul className="space-y-5">
-          {[
-            "Time Flies In Google Earth's Biggest Update In",
-            "3 Ways To Find And Support Eco-Friendly",
-            "How We're Minimizing AI's Carbon Footprint",
-            "Your Chromebook Gets A Little More Helpful",
-          ].map((t, i) => (
-            <li key={i} className="flex gap-3">
-              <div className="w-20 h-16 bg-muted shrink-0 rounded grid place-items-center text-[10px] text-muted-foreground">160x160</div>
-              <div className="text-sm">
-                <div className="flex items-center gap-1 text-xs text-muted-foreground mb-1"><Calendar className="w-3 h-3" /> 10 Fevereiro 2026</div>
-                <p className="font-semibold leading-snug">{t}</p>
-              </div>
+          {articles.slice(0, 4).map((a) => (
+            <li key={a.slug}>
+              <Link to={`${a.categoryHref}/$slug`} params={{ slug: a.slug }} className="flex gap-3 group">
+                <img src={a.cover} alt={a.title} className="w-20 h-16 shrink-0 rounded object-cover" />
+                <div className="text-sm">
+                  <div className="flex items-center gap-1 text-xs text-muted-foreground mb-1">
+                    <Calendar className="w-3 h-3" /> {a.date}
+                  </div>
+                  <p className="font-semibold leading-snug group-hover:text-primary">{a.title}</p>
+                </div>
+              </Link>
             </li>
           ))}
         </ul>
