@@ -1,7 +1,4 @@
 import raw from "./articles.json";
-import lgpd from "@/assets/articles/lgpd.jpg";
-import navAnonima from "@/assets/articles/nav-anonima.jpg";
-import openclaw from "@/assets/articles/openclaw.jpg";
 
 export type Block =
   | { type: "h2" | "h3" | "h4" | "p"; text: string }
@@ -21,7 +18,17 @@ export type Article = {
   readMinutes: number;
 };
 
-const covers: Record<string, string> = { lgpd, "nav-anonima": navAnonima, openclaw };
+// Eagerly import every JPG under articles/ so bundler resolves URLs.
+const covers = import.meta.glob("@/assets/articles/*.jpg", {
+  eager: true,
+  query: "?url",
+  import: "default",
+}) as Record<string, string>;
+
+function coverFor(slug: string): string {
+  const found = Object.entries(covers).find(([k]) => k.endsWith(`/${slug}.jpg`));
+  return found ? found[1] : "";
+}
 
 function readTime(blocks: Block[]) {
   const words = blocks.reduce((n, b) => {
@@ -32,18 +39,21 @@ function readTime(blocks: Block[]) {
   return Math.max(3, Math.round(words / 220));
 }
 
-export const articles: Article[] = Object.entries(raw as Record<string, Omit<Article, "slug" | "cover" | "readMinutes">>).map(
-  ([slug, a]) => ({
-    ...a,
-    slug,
-    blocks: a.blocks as Block[],
-    cover: covers[a.image] ?? lgpd,
-    readMinutes: readTime(a.blocks as Block[]),
-  }),
+export const articles: Article[] = Object.entries(
+  raw as Record<string, Omit<Article, "slug" | "cover" | "readMinutes">>,
+).map(([slug, a]) => ({
+  ...a,
+  slug,
+  blocks: a.blocks as Block[],
+  cover: coverFor(slug),
+  readMinutes: readTime(a.blocks as Block[]),
+}));
+
+export const articlesBySlug: Record<string, Article> = Object.fromEntries(
+  articles.map((a) => [a.slug, a]),
 );
 
-export const articlesBySlug: Record<string, Article> = Object.fromEntries(articles.map((a) => [a.slug, a]));
-
 export function articlesByCategory(category: string) {
-  return articles.filter((a) => a.category.toLowerCase() === category.toLowerCase());
+  const norm = (s: string) => s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  return articles.filter((a) => norm(a.category) === norm(category));
 }
