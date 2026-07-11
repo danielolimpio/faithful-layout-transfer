@@ -10,11 +10,6 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SobreRouteImport } from './routes/sobre'
-import { Route as SegurancaRouteImport } from './routes/seguranca'
-import { Route as PrivacidadeRouteImport } from './routes/privacidade'
-import { Route as PagamentosRouteImport } from './routes/pagamentos'
-import { Route as FerramentasRouteImport } from './routes/ferramentas'
-import { Route as CriptografiaRouteImport } from './routes/criptografia'
 import { Route as ContatoRouteImport } from './routes/contato'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SegurancaSlugRouteImport } from './routes/seguranca.$slug'
@@ -23,31 +18,6 @@ import { Route as PrivacidadeSlugRouteImport } from './routes/privacidade.$slug'
 const SobreRoute = SobreRouteImport.update({
   id: '/sobre',
   path: '/sobre',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SegurancaRoute = SegurancaRouteImport.update({
-  id: '/seguranca',
-  path: '/seguranca',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PrivacidadeRoute = PrivacidadeRouteImport.update({
-  id: '/privacidade',
-  path: '/privacidade',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PagamentosRoute = PagamentosRouteImport.update({
-  id: '/pagamentos',
-  path: '/pagamentos',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FerramentasRoute = FerramentasRouteImport.update({
-  id: '/ferramentas',
-  path: '/ferramentas',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CriptografiaRoute = CriptografiaRouteImport.update({
-  id: '/criptografia',
-  path: '/criptografia',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContatoRoute = ContatoRouteImport.update({
@@ -61,24 +31,19 @@ const IndexRoute = IndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const SegurancaSlugRoute = SegurancaSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => SegurancaRoute,
+  id: '/seguranca/$slug',
+  path: '/seguranca/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacidadeSlugRoute = PrivacidadeSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => PrivacidadeRoute,
+  id: '/privacidade/$slug',
+  path: '/privacidade/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/contato': typeof ContatoRoute
-  '/criptografia': typeof CriptografiaRoute
-  '/ferramentas': typeof FerramentasRoute
-  '/pagamentos': typeof PagamentosRoute
-  '/privacidade': typeof PrivacidadeRouteWithChildren
-  '/seguranca': typeof SegurancaRouteWithChildren
   '/sobre': typeof SobreRoute
   '/privacidade/$slug': typeof PrivacidadeSlugRoute
   '/seguranca/$slug': typeof SegurancaSlugRoute
@@ -86,11 +51,6 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/contato': typeof ContatoRoute
-  '/criptografia': typeof CriptografiaRoute
-  '/ferramentas': typeof FerramentasRoute
-  '/pagamentos': typeof PagamentosRoute
-  '/privacidade': typeof PrivacidadeRouteWithChildren
-  '/seguranca': typeof SegurancaRouteWithChildren
   '/sobre': typeof SobreRoute
   '/privacidade/$slug': typeof PrivacidadeSlugRoute
   '/seguranca/$slug': typeof SegurancaSlugRoute
@@ -99,11 +59,6 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/contato': typeof ContatoRoute
-  '/criptografia': typeof CriptografiaRoute
-  '/ferramentas': typeof FerramentasRoute
-  '/pagamentos': typeof PagamentosRoute
-  '/privacidade': typeof PrivacidadeRouteWithChildren
-  '/seguranca': typeof SegurancaRouteWithChildren
   '/sobre': typeof SobreRoute
   '/privacidade/$slug': typeof PrivacidadeSlugRoute
   '/seguranca/$slug': typeof SegurancaSlugRoute
@@ -113,35 +68,15 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/contato'
-    | '/criptografia'
-    | '/ferramentas'
-    | '/pagamentos'
-    | '/privacidade'
-    | '/seguranca'
     | '/sobre'
     | '/privacidade/$slug'
     | '/seguranca/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/contato'
-    | '/criptografia'
-    | '/ferramentas'
-    | '/pagamentos'
-    | '/privacidade'
-    | '/seguranca'
-    | '/sobre'
-    | '/privacidade/$slug'
-    | '/seguranca/$slug'
+  to: '/' | '/contato' | '/sobre' | '/privacidade/$slug' | '/seguranca/$slug'
   id:
     | '__root__'
     | '/'
     | '/contato'
-    | '/criptografia'
-    | '/ferramentas'
-    | '/pagamentos'
-    | '/privacidade'
-    | '/seguranca'
     | '/sobre'
     | '/privacidade/$slug'
     | '/seguranca/$slug'
@@ -150,12 +85,9 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ContatoRoute: typeof ContatoRoute
-  CriptografiaRoute: typeof CriptografiaRoute
-  FerramentasRoute: typeof FerramentasRoute
-  PagamentosRoute: typeof PagamentosRoute
-  PrivacidadeRoute: typeof PrivacidadeRouteWithChildren
-  SegurancaRoute: typeof SegurancaRouteWithChildren
   SobreRoute: typeof SobreRoute
+  PrivacidadeSlugRoute: typeof PrivacidadeSlugRoute
+  SegurancaSlugRoute: typeof SegurancaSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -165,41 +97,6 @@ declare module '@tanstack/react-router' {
       path: '/sobre'
       fullPath: '/sobre'
       preLoaderRoute: typeof SobreRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/seguranca': {
-      id: '/seguranca'
-      path: '/seguranca'
-      fullPath: '/seguranca'
-      preLoaderRoute: typeof SegurancaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/privacidade': {
-      id: '/privacidade'
-      path: '/privacidade'
-      fullPath: '/privacidade'
-      preLoaderRoute: typeof PrivacidadeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/pagamentos': {
-      id: '/pagamentos'
-      path: '/pagamentos'
-      fullPath: '/pagamentos'
-      preLoaderRoute: typeof PagamentosRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/ferramentas': {
-      id: '/ferramentas'
-      path: '/ferramentas'
-      fullPath: '/ferramentas'
-      preLoaderRoute: typeof FerramentasRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/criptografia': {
-      id: '/criptografia'
-      path: '/criptografia'
-      fullPath: '/criptografia'
-      preLoaderRoute: typeof CriptografiaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contato': {
@@ -218,54 +115,27 @@ declare module '@tanstack/react-router' {
     }
     '/seguranca/$slug': {
       id: '/seguranca/$slug'
-      path: '/$slug'
+      path: '/seguranca/$slug'
       fullPath: '/seguranca/$slug'
       preLoaderRoute: typeof SegurancaSlugRouteImport
-      parentRoute: typeof SegurancaRoute
+      parentRoute: typeof rootRouteImport
     }
     '/privacidade/$slug': {
       id: '/privacidade/$slug'
-      path: '/$slug'
+      path: '/privacidade/$slug'
       fullPath: '/privacidade/$slug'
       preLoaderRoute: typeof PrivacidadeSlugRouteImport
-      parentRoute: typeof PrivacidadeRoute
+      parentRoute: typeof rootRouteImport
     }
   }
 }
 
-interface PrivacidadeRouteChildren {
-  PrivacidadeSlugRoute: typeof PrivacidadeSlugRoute
-}
-
-const PrivacidadeRouteChildren: PrivacidadeRouteChildren = {
-  PrivacidadeSlugRoute: PrivacidadeSlugRoute,
-}
-
-const PrivacidadeRouteWithChildren = PrivacidadeRoute._addFileChildren(
-  PrivacidadeRouteChildren,
-)
-
-interface SegurancaRouteChildren {
-  SegurancaSlugRoute: typeof SegurancaSlugRoute
-}
-
-const SegurancaRouteChildren: SegurancaRouteChildren = {
-  SegurancaSlugRoute: SegurancaSlugRoute,
-}
-
-const SegurancaRouteWithChildren = SegurancaRoute._addFileChildren(
-  SegurancaRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ContatoRoute: ContatoRoute,
-  CriptografiaRoute: CriptografiaRoute,
-  FerramentasRoute: FerramentasRoute,
-  PagamentosRoute: PagamentosRoute,
-  PrivacidadeRoute: PrivacidadeRouteWithChildren,
-  SegurancaRoute: SegurancaRouteWithChildren,
   SobreRoute: SobreRoute,
+  PrivacidadeSlugRoute: PrivacidadeSlugRoute,
+  SegurancaSlugRoute: SegurancaSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
