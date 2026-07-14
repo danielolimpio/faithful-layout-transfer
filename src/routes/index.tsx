@@ -50,28 +50,37 @@ function ArticleLink({
 }
 
 function SectionTitle({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  return <h2 className={`section-title ${className}`}>{children}</h2>;
+  return <h2 className={`section-title flex-1 ${className}`}>{children}</h2>;
 }
 
 function Home() {
-  // Distribute articles across sections (stable order for now).
   const all = articles;
-  const featured = all[0];
-  const [tab, setTab] = useState<string>("All");
-  const tabs = ["All", "Segurança", "Criptografia", "Privacidade"];
 
-  const destaquesSide = useMemo(() => {
-    const pool = tab === "All" ? all : articlesByCategory(tab);
-    return pool.filter((a) => a.slug !== featured.slug).slice(0, 3);
-  }, [tab, all, featured.slug]);
+  // ---- Destaques ----
+  const destaqueTabs = ["All", "Segurança", "Criptografia", "Privacidade"] as const;
+  const [destaqueTab, setDestaqueTab] = useState<(typeof destaqueTabs)[number]>("All");
+  const destaquePool = useMemo(
+    () => (destaqueTab === "All" ? all : articlesByCategory(destaqueTab)),
+    [destaqueTab, all],
+  );
+  const featured = destaquePool[0] ?? all[0];
+  const destaquesSide = destaquePool.filter((a) => a.slug !== featured.slug).slice(0, 3);
 
+  // ---- Tendência ----
   const tendencias = useMemo(
     () =>
       CATEGORIES.map((c) => articlesByCategory(c)[0]).filter(Boolean).slice(0, 4) as Article[],
     [],
   );
 
-  const populares = all.slice(4, 9);
+  // ---- Populares (independent tabs) ----
+  const popTabs = ["All", "Segurança", "Pagamentos", "Ferramentas"] as const;
+  const [popTab, setPopTab] = useState<(typeof popTabs)[number]>("All");
+  const popularesPool = useMemo(() => {
+    const pool = popTab === "All" ? all : articlesByCategory(popTab);
+    return pool.slice(0, 5);
+  }, [popTab, all]);
+
   const novidades = all.slice(9, 15);
   const catCounts = Object.fromEntries(
     CATEGORIES.map((c) => [c, articlesByCategory(c).length]),
@@ -81,95 +90,100 @@ function Home() {
     <div className="bg-background">
       {/* DESTAQUES */}
       <section className="container mx-auto px-4 py-12">
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
-          <SectionTitle className="!flex-none">Destaques</SectionTitle>
-          <div className="flex gap-2 text-sm flex-wrap">
-            {tabs.map((t) => (
-              <button
-                key={t}
-                onClick={() => setTab(t)}
-                className={`px-3 py-1.5 rounded transition ${
-                  tab === t
-                    ? "text-primary font-semibold border-b-2 border-primary"
-                    : "text-muted-foreground hover:text-primary"
-                }`}
-              >
-                {t}
-              </button>
-            ))}
-            <Link to="/privacidade" className="px-3 py-1.5 rounded text-muted-foreground hover:text-primary">
-              Categorias
-            </Link>
-          </div>
-        </div>
-
         <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr_1fr] gap-6">
-          {/* Featured */}
-          <article className="relative rounded-lg overflow-hidden aspect-[4/3] text-white group">
-            <ArticleLink article={featured} className="block absolute inset-0">
-              <img src={featured.cover} alt={featured.title} className="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-            </ArticleLink>
-            <div className="absolute top-4 left-4 z-10">
-              <CategoryBadge category={featured.category} />
+          {/* Left: title + tabs + featured */}
+          <div>
+            <div className="flex items-center gap-4 mb-6">
+              <SectionTitle>Destaques</SectionTitle>
             </div>
-            <div className="absolute bottom-5 left-5 right-5 pointer-events-none">
-              <div className="flex items-center gap-1 text-xs mb-2 opacity-90">
-                <Calendar className="w-3 h-3" />
-                {featured.date}
-              </div>
-              <ArticleLink article={featured} className="pointer-events-auto">
-                <h3 className="text-2xl font-bold leading-tight hover:text-primary">{featured.title}</h3>
+            <article className="relative rounded-lg overflow-hidden aspect-[4/3] text-white group">
+              <ArticleLink article={featured} className="block absolute inset-0">
+                <img src={featured.cover} alt={featured.title} className="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
               </ArticleLink>
-            </div>
-          </article>
-
-          {/* Side articles (filtered by tab) */}
-          <div className="space-y-4">
-            {destaquesSide.map((a) => (
-              <article key={a.slug} className="flex gap-4 items-center">
-                <ArticleLink article={a} className="shrink-0">
-                  <img src={a.cover} alt={a.title} className="w-24 h-24 rounded object-cover" />
-                </ArticleLink>
-                <div>
-                  <div className="flex items-center gap-2 mb-2">
-                    <CategoryBadge category={a.category} />
-                    <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                      <Calendar className="w-3 h-3" />
-                      {a.date}
-                    </span>
-                  </div>
-                  <ArticleLink article={a}>
-                    <h4 className="font-semibold leading-snug text-sm hover:text-primary">{a.title}</h4>
-                  </ArticleLink>
+              <div className="absolute top-4 left-4 z-10">
+                <CategoryBadge category={featured.category} />
+              </div>
+              <div className="absolute bottom-5 left-5 right-5 pointer-events-none">
+                <div className="flex items-center gap-1 text-xs mb-2 opacity-90">
+                  <Calendar className="w-3 h-3" />
+                  {featured.date}
                 </div>
-              </article>
-            ))}
+                <ArticleLink article={featured} className="pointer-events-auto">
+                  <h3 className="text-2xl font-bold leading-tight hover:text-primary">{featured.title}</h3>
+                </ArticleLink>
+              </div>
+            </article>
           </div>
 
-          {/* Categories grid */}
-          <div className="grid grid-cols-2 gap-3">
-            {CATEGORIES.map((c) => {
-              const first = articlesByCategory(c)[0];
-              return (
-                <Link
-                  key={c}
-                  to={hrefFor(c)}
-                  className="relative rounded-lg overflow-hidden aspect-square text-white grid place-items-center group"
+          {/* Middle: tabs + side articles */}
+          <div>
+            <div className="flex items-center gap-2 mb-6 text-sm flex-wrap justify-end">
+              {destaqueTabs.map((t) => (
+                <button
+                  key={t}
+                  onClick={() => setDestaqueTab(t)}
+                  className={`px-2 py-1.5 transition ${
+                    destaqueTab === t
+                      ? "text-foreground font-semibold border-b-2 border-primary"
+                      : "text-muted-foreground hover:text-primary"
+                  }`}
                 >
-                  {first ? (
-                    <img src={first.cover} alt={c} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500" />
-                  ) : (
-                    <div className="absolute inset-0 bg-gradient-to-br from-slate-700 to-slate-900" />
-                  )}
-                  <div className="absolute inset-0 bg-black/40" />
-                  <span className="cat-badge !bg-primary !text-white absolute top-2 left-2 text-[10px] z-10">{c}</span>
-                  <span className="text-3xl font-extrabold opacity-40 absolute bottom-2 right-3 z-10">
-                    {String(catCounts[c] ?? 0).padStart(2, "0")}
-                  </span>
-                </Link>
-              );
-            })}
+                  {t}
+                </button>
+              ))}
+            </div>
+            <div className="space-y-4">
+              {destaquesSide.map((a) => (
+                <article key={a.slug} className="flex gap-4 items-center pb-4 border-b border-border/40 last:border-0">
+                  <ArticleLink article={a} className="shrink-0">
+                    <img src={a.cover} alt={a.title} className="w-24 h-24 rounded object-cover" />
+                  </ArticleLink>
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2 mb-2">
+                      <CategoryBadge category={a.category} />
+                      <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                        <Calendar className="w-3 h-3" />
+                        {a.date}
+                      </span>
+                    </div>
+                    <ArticleLink article={a}>
+                      <h4 className="font-semibold leading-snug text-sm hover:text-primary">{a.title}</h4>
+                    </ArticleLink>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          {/* Right sidebar: Categorias */}
+          <div>
+            <div className="flex items-center gap-4 mb-6">
+              <SectionTitle>Categorias</SectionTitle>
+            </div>
+            <div className="flex flex-col gap-3">
+              {CATEGORIES.map((c) => {
+                const first = articlesByCategory(c)[0];
+                return (
+                  <Link
+                    key={c}
+                    to={hrefFor(c)}
+                    className="relative rounded-lg overflow-hidden h-20 text-white flex items-center group"
+                  >
+                    {first ? (
+                      <img src={first.cover} alt={c} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+                    ) : (
+                      <div className="absolute inset-0 bg-gradient-to-br from-slate-700 to-slate-900" />
+                    )}
+                    <div className="absolute inset-0 bg-black/50" />
+                    <span className="cat-badge !bg-black/40 !text-white absolute left-3 z-10 backdrop-blur-sm">{c}</span>
+                    <span className="text-2xl font-extrabold text-white/80 absolute right-4 z-10">
+                      {String(catCounts[c] ?? 0).padStart(2, "0")}
+                    </span>
+                  </Link>
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
@@ -182,9 +196,9 @@ function Home() {
             if (!a) return null;
             return (
               <div key={cat}>
-                <div className="flex items-center justify-between mb-6">
-                  <SectionTitle className="text-xl">{cat}</SectionTitle>
-                  <Link to={hrefFor(cat)} className="text-sm text-primary font-semibold hover:underline">
+                <div className="flex items-center gap-4 mb-6">
+                  <SectionTitle className="!text-xl">{cat}</SectionTitle>
+                  <Link to={hrefFor(cat)} className="text-sm text-primary font-semibold hover:underline shrink-0">
                     Ver todos
                   </Link>
                 </div>
@@ -216,7 +230,9 @@ function Home() {
           })}
 
           <div>
-            <SectionTitle className="mb-6 text-xl">Redes Sociais</SectionTitle>
+            <div className="flex items-center gap-4 mb-6">
+              <SectionTitle className="!text-xl">Redes Sociais</SectionTitle>
+            </div>
             <ul className="space-y-3 mb-4">
               {[
                 { icon: Facebook, color: "#3b5998", n: "15000 Curtidas", action: "Like" },
@@ -249,7 +265,9 @@ function Home() {
       {/* TENDENCIA EM ALTA */}
       <section className="bg-footer text-white py-12">
         <div className="container mx-auto px-4">
-          <SectionTitle className="mb-8 text-white">Tendência Em Alta</SectionTitle>
+          <div className="flex items-center gap-4 mb-8">
+            <SectionTitle className="text-white">Tendência Em Alta</SectionTitle>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {tendencias.map((a) => (
               <article key={a.slug} className="group">
@@ -276,21 +294,29 @@ function Home() {
 
       {/* POPULARES */}
       <section className="container mx-auto px-4 py-12">
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
-          <SectionTitle className="!flex-none">Populares</SectionTitle>
-          <div className="flex gap-3 text-sm">
-            {(["Segurança", "Pagamentos", "Ferramentas"] as const).map((t) => (
-              <Link key={t} to={hrefFor(t)} className="text-muted-foreground hover:text-primary">
+        <div className="flex flex-wrap items-center gap-4 mb-8">
+          <SectionTitle>Populares</SectionTitle>
+          <div className="flex gap-3 text-sm shrink-0">
+            {popTabs.map((t) => (
+              <button
+                key={t}
+                onClick={() => setPopTab(t)}
+                className={`px-2 py-1.5 transition ${
+                  popTab === t
+                    ? "text-foreground font-semibold border-b-2 border-primary"
+                    : "text-muted-foreground hover:text-primary"
+                }`}
+              >
                 {t}
-              </Link>
+              </button>
             ))}
           </div>
         </div>
 
-        {populares.length >= 5 && (
+        {popularesPool.length > 0 && (
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.4fr_1fr] gap-6">
             <div className="space-y-6">
-              {[populares[0], populares[1]].map((a) => (
+              {[popularesPool[0], popularesPool[1]].filter(Boolean).map((a) => (
                 <article key={a.slug} className="group">
                   <ArticleLink article={a}>
                     <div className="aspect-[4/3] rounded overflow-hidden mb-3">
@@ -311,22 +337,24 @@ function Home() {
               ))}
             </div>
 
-            <article className="group">
-              <ArticleLink article={populares[2]}>
-                <div className="aspect-[5/4] rounded overflow-hidden">
-                  <img src={populares[2].cover} alt={populares[2].title} className="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
-                </div>
-              </ArticleLink>
-              <div className="p-4">
-                <CategoryBadge category={populares[2].category} />
-                <ArticleLink article={populares[2]}>
-                  <h4 className="font-bold text-xl mt-3 leading-snug hover:text-primary">{populares[2].title}</h4>
+            {popularesPool[2] && (
+              <article className="group">
+                <ArticleLink article={popularesPool[2]}>
+                  <div className="aspect-[5/4] rounded overflow-hidden">
+                    <img src={popularesPool[2].cover} alt={popularesPool[2].title} className="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+                  </div>
                 </ArticleLink>
-              </div>
-            </article>
+                <div className="p-4">
+                  <CategoryBadge category={popularesPool[2].category} />
+                  <ArticleLink article={popularesPool[2]}>
+                    <h4 className="font-bold text-xl mt-3 leading-snug hover:text-primary">{popularesPool[2].title}</h4>
+                  </ArticleLink>
+                </div>
+              </article>
+            )}
 
             <div className="space-y-6">
-              {[populares[3], populares[4]].map((a) => (
+              {[popularesPool[3], popularesPool[4]].filter(Boolean).map((a) => (
                 <article key={a.slug} className="group">
                   <ArticleLink article={a}>
                     <div className="aspect-[4/3] rounded overflow-hidden mb-3">
@@ -354,7 +382,9 @@ function Home() {
       <section className="bg-muted/30 py-12">
         <div className="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-10">
           <div>
-            <SectionTitle className="mb-8">Novidades</SectionTitle>
+            <div className="flex items-center gap-4 mb-8">
+              <SectionTitle>Novidades</SectionTitle>
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {novidades.map((a) => {
                 const firstP = a.blocks.find((b) => b.type === "p") as { text: string } | undefined;
