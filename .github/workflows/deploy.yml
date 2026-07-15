@@ -23,8 +23,38 @@ jobs:
       - name: Build do projeto
         run: npm run build
 
-      - name: Mostrar arquivos gerados
-        run: ls -la dist/
+      - name: Preparar arquivos para deploy
+        run: |
+          rm -rf deploy
+          if [ -d ".output/public" ]; then
+            cp -R .output/public deploy
+          elif [ -d "dist" ]; then
+            cp -R dist deploy
+          else
+            echo "Erro: nenhuma pasta pública de build foi encontrada. Pastas disponíveis:" >&2
+            ls -la
+            exit 1
+          fi
+
+          if [ ! -f "deploy/index.html" ]; then
+            echo "Erro: index.html não foi encontrado na pasta de deploy." >&2
+            ls -la deploy
+            exit 1
+          fi
+
+          cat > deploy/.htaccess <<'EOF'
+          <IfModule mod_rewrite.c>
+            RewriteEngine On
+            RewriteBase /
+            RewriteRule ^index\.html$ - [L]
+            RewriteCond %{REQUEST_FILENAME} !-f
+            RewriteCond %{REQUEST_FILENAME} !-d
+            RewriteRule . /index.html [L]
+          </IfModule>
+          EOF
+
+          echo "Arquivos prontos para deploy:"
+          ls -la deploy/
 
       - name: Deploy FTP para Hostinger
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
@@ -33,7 +63,7 @@ jobs:
           port: 21
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASS }}
-          local-dir: ./dist/
+          local-dir: ./deploy/
           server-dir: /
           dangerous-clean-slate: true
           dry-run: false
