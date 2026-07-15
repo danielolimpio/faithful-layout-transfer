@@ -22,23 +22,24 @@ jobs:
 
       - name: Build do projeto
         run: npm run build
+        env:
+          STATIC_EXPORT: "true"
 
       - name: Preparar arquivos para deploy
         run: |
           rm -rf deploy
-          if [ -d ".output/public" ]; then
-            cp -R .output/public deploy
-          elif [ -d "dist" ]; then
-            cp -R dist deploy
+          if [ -f ".output/public/index.html" ]; then
+            cp -R .output/public/. deploy/
+          elif [ -f "dist/index.html" ]; then
+            cp -R dist/. deploy/
           else
-            echo "Erro: nenhuma pasta pública de build foi encontrada. Pastas disponíveis:" >&2
+            echo "Erro: o build não gerou index.html para hospedagem estática." >&2
+            echo "Conteúdo de .output/public:" >&2
+            ls -la .output/public 2>/dev/null || true
+            echo "Conteúdo de dist:" >&2
+            ls -la dist 2>/dev/null || true
+            echo "Raiz do projeto:" >&2
             ls -la
-            exit 1
-          fi
-
-          if [ ! -f "deploy/index.html" ]; then
-            echo "Erro: index.html não foi encontrado na pasta de deploy." >&2
-            ls -la deploy
             exit 1
           fi
 
