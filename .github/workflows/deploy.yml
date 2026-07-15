@@ -28,6 +28,7 @@ jobs:
       - name: Preparar arquivos para deploy
         run: |
           rm -rf deploy
+          mkdir -p deploy
           if [ -f ".output/public/index.html" ]; then
             cp -R .output/public/. deploy/
           elif [ -f "dist/index.html" ]; then
