@@ -20,43 +20,15 @@ jobs:
       - name: Instalar dependências
         run: npm install
 
-      - name: Build do projeto
-        run: npm run build
-        env:
-          STATIC_EXPORT: "true"
+      - name: Build do projeto (Geração Estática)
+        run: npm run generate
 
-      - name: Preparar arquivos para deploy
+      - name: Mostrar arquivos gerados
         run: |
-          rm -rf deploy
-          mkdir -p deploy
-          if [ -f ".output/public/index.html" ]; then
-            cp -R .output/public/. deploy/
-          elif [ -f "dist/index.html" ]; then
-            cp -R dist/. deploy/
-          else
-            echo "Erro: o build não gerou index.html para hospedagem estática." >&2
-            echo "Conteúdo de .output/public:" >&2
-            ls -la .output/public 2>/dev/null || true
-            echo "Conteúdo de dist:" >&2
-            ls -la dist 2>/dev/null || true
-            echo "Raiz do projeto:" >&2
-            ls -la
-            exit 1
-          fi
-
-          cat > deploy/.htaccess <<'EOF'
-          <IfModule mod_rewrite.c>
-            RewriteEngine On
-            RewriteBase /
-            RewriteRule ^index\.html$ - [L]
-            RewriteCond %{REQUEST_FILENAME} !-f
-            RewriteCond %{REQUEST_FILENAME} !-d
-            RewriteRule . /index.html [L]
-          </IfModule>
-          EOF
-
-          echo "Arquivos prontos para deploy:"
-          ls -la deploy/
+          echo "Conteúdo da pasta dist:"
+          ls -la dist/
+          echo "Verificando index.html:"
+          test -f dist/index.html && echo "✓ index.html encontrado" || echo "✗ index.html NÃO encontrado"
 
       - name: Deploy FTP para Hostinger
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
@@ -65,8 +37,8 @@ jobs:
           port: 21
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASS }}
-          local-dir: ./deploy/
-          server-dir: /
-          dangerous-clean-slate: true
+          local-dir: ./dist/
+          server-dir: /public_html/
+          dangerous-clean-slate: false
           dry-run: false
           log-level: verbose
