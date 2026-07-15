@@ -6,10 +6,29 @@
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
+const isStaticExport = process.env.STATIC_EXPORT === "true";
+
 export default defineConfig({
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
     server: { entry: "server" },
+    ...(isStaticExport
+      ? {
+          prerender: {
+            enabled: true,
+            crawlLinks: true,
+            failOnError: true,
+            concurrency: 8,
+          },
+        }
+      : {}),
   },
+  ...(isStaticExport
+    ? {
+        nitro: {
+          preset: "static",
+        },
+      }
+    : {}),
 });
