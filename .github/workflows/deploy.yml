@@ -20,8 +20,8 @@ jobs:
       - name: Instalar dependências
         run: npm install
 
-      - name: Build do projeto (Geração Estática)
-        run: npm run generate
+      - name: Build do projeto
+        run: npm run build
 
       - name: Mostrar arquivos gerados
         run: |
