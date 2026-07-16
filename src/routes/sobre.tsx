@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { Wallet, RefreshCw, ClipboardList, Users } from "lucide-react";
+import { author } from "@/data/author";
+import { AuthorSocials } from "@/components/AuthorSocials";
 
 export const Route = createFileRoute("/sobre")({
   head: () => ({ meta: [{ title: "Sobre — Cebolla.app" }, { name: "description", content: "Cebolla.app nasceu para proteger sua identidade digital em um mundo de vigilância constante." }] }),
