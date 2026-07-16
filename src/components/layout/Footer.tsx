@@ -101,11 +101,10 @@ export function Footer() {
           <p className="text-sm text-footer-muted leading-relaxed mb-6">
             Proteja seus dados e navegue com tranquilidade: descubra práticas de privacidade digital, evite ameaças online e fortaleça sua segurança em cada acesso diário seguro.
           </p>
-          <div className="flex gap-2">
           <AuthorSocials />
-
         </div>
       </div>
+
 
       <div className="border-t border-white/10">
         <div className="container mx-auto px-4 py-5 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-footer-muted">
