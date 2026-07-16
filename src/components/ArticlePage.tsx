@@ -1,8 +1,8 @@
+import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import {
   Calendar,
   Clock,
-  User,
   Tag,
   Share2,
   Facebook,
@@ -10,7 +10,6 @@ import {
   Linkedin,
   Link as LinkIcon,
   CheckCircle2,
-  AlertTriangle,
   Sparkles,
   Quote,
   ArrowRight,
@@ -18,6 +17,8 @@ import {
 import { Sidebar } from "@/components/layout/Sidebar";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { articles, type Article, type Block } from "@/data/articles";
+import { author } from "@/data/author";
+import { AuthorSocials } from "@/components/AuthorSocials";
 
 /** Detects a numbered-heading pattern like "1. Something" */
 function isNumberedH3(text: string) {
