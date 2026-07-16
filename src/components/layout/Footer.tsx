@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { Facebook, Twitter, Youtube, Send, User, Mail, Calendar } from "lucide-react";
+import { Send, User, Mail, Calendar } from "lucide-react";
+import { AuthorSocials } from "@/components/AuthorSocials";
 import logo from "@/assets/cebolla-logo.png";
 import { articles } from "@/data/articles";
 
