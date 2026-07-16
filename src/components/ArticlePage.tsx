@@ -321,5 +321,56 @@ function RenderOne({ b }: { b: Block; index: number }) {
   return <>{nodes}</>;
 }
 
+function AuthorCard() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="mt-10 rounded-2xl border border-border/60 bg-gradient-to-br from-muted/40 to-background p-6 md:p-8 flex flex-col md:flex-row gap-6 items-start">
+      <img
+        src={author.photo}
+        alt={author.name}
+        className="w-24 h-24 rounded-full object-cover shrink-0"
+      />
+      <div className="flex-1">
+        <div className="text-xs uppercase tracking-widest text-primary font-semibold mb-1">
+          Sobre o Autor
+        </div>
+        <h4 className="text-xl font-bold">{author.name}</h4>
+        <p className="text-sm text-muted-foreground mb-3">{author.role}</p>
+        <p className="text-sm text-foreground/85 leading-relaxed">
+          {author.shortBio}
+        </p>
+        {open && (
+          <div className="mt-3 space-y-3">
+            {author.fullBio.map((p, i) => (
+              <p key={i} className="text-sm text-foreground/85 leading-relaxed">
+                {p}
+              </p>
+            ))}
+            <div className="flex flex-wrap gap-2 pt-1">
+              {author.skills.map((s) => (
+                <span
+                  key={s}
+                  className="text-xs font-semibold px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20"
+                >
+                  {s}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+        <div className="mt-4 flex flex-wrap items-center gap-4">
+          <button
+            onClick={() => setOpen((v) => !v)}
+            className="text-sm font-semibold text-primary hover:underline"
+          >
+            {open ? "Ver Menos" : "Ver Mais"}
+          </button>
+          <AuthorSocials />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // Named for style parity with future MDX exports
 export { KeyStatsBanner };
