@@ -20,31 +20,34 @@ jobs:
       - name: Instalar dependências
         run: npm install
 
-      - name: Build estático
+      - name: Build estático (sem postbuild)
         run: |
-          echo "=== Iniciando build estático ==="
+          echo "=== Build estático direto com Vite ==="
+          STATIC_EXPORT=true npx vite build
           
-          # Roda o build:static (pode falhar no Nitro, mas gera os arquivos)
-          npm run build:static || echo "⚠ Build completou com avisos"
-          
-          echo "=== Verificando arquivos gerados ==="
-          
-          # Verifica se .output/public foi gerado
-          if [ -d ".output/public" ]; then
-            echo "✓ Pasta .output/public encontrada"
-            ls -la .output/public/ | head -20
+          echo "=== Verificando arquivos ==="
+          if [ -d "dist" ]; then
+            echo "✓ Pasta dist/ encontrada"
+            ls -la dist/ | head -20
             
-            # Cria dist e copia os arquivos
-            mkdir -p dist
-            cp -r .output/public/* dist/
-            
-            echo "✓ Arquivos copiados para dist/"
+            if [ -f "dist/index.html" ]; then
+              echo "✅ index.html encontrado!"
+            else
+              echo "❌ index.html NÃO encontrado!"
+              exit 1
+            fi
+          else
+            echo "❌ Pasta dist/ não encontrada!"
+            exit 1
           fi
-          
-          # Verifica se dist/index.html existe
-          if [ -f "dist/index.html" ]; then
-            echo "✅ SUCESSO: index.html gerado!"
-            echo "=== Primeiras linhas do index.html ==="
-            head -15 dist/index.html
-            echo "=== Conteúdo da pasta dist (primeiros 20 arquivos) ==="
-            ls -la
+
+      - name: Deploy FTP para Hostinger
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          port: 21
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
+          local-dir: ./dist/
+          server-dir: /
+          dangerous-clean-slate: true
