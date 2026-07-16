@@ -3,6 +3,8 @@ import { useMemo, useState } from "react";
 import { Calendar, Clock, ArrowRight, Facebook, Twitter, Youtube, Mail } from "lucide-react";
 import logo from "@/assets/cebolla-logo.png";
 import { articles, articlesByCategory, type Article } from "@/data/articles";
+import { author } from "@/data/author";
+import { AuthorSocials } from "@/components/AuthorSocials";
 
 export const Route = createFileRoute("/")({
   head: () => ({
