@@ -17,6 +17,7 @@ import { Route as PrivacidadeRouteImport } from './routes/privacidade'
 import { Route as PagamentosRouteImport } from './routes/pagamentos'
 import { Route as FerramentasRouteImport } from './routes/ferramentas'
 import { Route as CriptografiaRouteImport } from './routes/criptografia'
+import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as ContatoRouteImport } from './routes/contato'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SegurancaIndexRouteImport } from './routes/seguranca.index'
@@ -68,6 +69,11 @@ const FerramentasRoute = FerramentasRouteImport.update({
 const CriptografiaRoute = CriptografiaRouteImport.update({
   id: '/criptografia',
   path: '/criptografia',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CookiesRoute = CookiesRouteImport.update({
+  id: '/cookies',
+  path: '/cookies',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContatoRoute = ContatoRouteImport.update({
@@ -134,6 +140,7 @@ const CriptografiaSlugRoute = CriptografiaSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/contato': typeof ContatoRoute
+  '/cookies': typeof CookiesRoute
   '/criptografia': typeof CriptografiaRouteWithChildren
   '/ferramentas': typeof FerramentasRouteWithChildren
   '/pagamentos': typeof PagamentosRouteWithChildren
@@ -156,6 +163,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/contato': typeof ContatoRoute
+  '/cookies': typeof CookiesRoute
   '/privacidade-politica': typeof PrivacidadePoliticaRoute
   '/sobre': typeof SobreRoute
   '/termos': typeof TermosRoute
@@ -174,6 +182,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/contato': typeof ContatoRoute
+  '/cookies': typeof CookiesRoute
   '/criptografia': typeof CriptografiaRouteWithChildren
   '/ferramentas': typeof FerramentasRouteWithChildren
   '/pagamentos': typeof PagamentosRouteWithChildren
@@ -198,6 +207,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/contato'
+    | '/cookies'
     | '/criptografia'
     | '/ferramentas'
     | '/pagamentos'
@@ -220,6 +230,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/contato'
+    | '/cookies'
     | '/privacidade-politica'
     | '/sobre'
     | '/termos'
@@ -237,6 +248,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/contato'
+    | '/cookies'
     | '/criptografia'
     | '/ferramentas'
     | '/pagamentos'
@@ -260,6 +272,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ContatoRoute: typeof ContatoRoute
+  CookiesRoute: typeof CookiesRoute
   CriptografiaRoute: typeof CriptografiaRouteWithChildren
   FerramentasRoute: typeof FerramentasRouteWithChildren
   PagamentosRoute: typeof PagamentosRouteWithChildren
@@ -326,6 +339,13 @@ declare module '@tanstack/react-router' {
       path: '/criptografia'
       fullPath: '/criptografia'
       preLoaderRoute: typeof CriptografiaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cookies': {
+      id: '/cookies'
+      path: '/cookies'
+      fullPath: '/cookies'
+      preLoaderRoute: typeof CookiesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contato': {
@@ -488,6 +508,7 @@ const SegurancaRouteWithChildren = SegurancaRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ContatoRoute: ContatoRoute,
+  CookiesRoute: CookiesRoute,
   CriptografiaRoute: CriptografiaRouteWithChildren,
   FerramentasRoute: FerramentasRouteWithChildren,
   PagamentosRoute: PagamentosRouteWithChildren,

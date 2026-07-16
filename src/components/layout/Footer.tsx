@@ -113,9 +113,9 @@ export function Footer() {
         <div className="container mx-auto px-4 py-5 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-footer-muted">
           <p>© Copyright 2026 | Cebolla.app | Todos direitos reservados | <span className="text-footer-foreground font-semibold">Desenvolvido por DanielOlímpio</span></p>
           <div className="flex gap-6">
-            <a href="#" className="hover:text-primary">Política de Privacidade</a>
-            <a href="#" className="hover:text-primary">Política de Cookies</a>
-            <a href="#" className="hover:text-primary">Termos de Uso</a>
+            <Link to="/privacidade-politica" className="hover:text-primary">Política de Privacidade</Link>
+            <Link to="/cookies" className="hover:text-primary">Política de Cookies</Link>
+            <Link to="/termos" className="hover:text-primary">Termos de Uso</Link>
           </div>
         </div>
       </div>
