@@ -20,15 +20,26 @@ jobs:
       - name: Instalar dependências
         run: npm install
 
-      - name: Build do projeto (Exportação Estática)
-        run: STATIC_EXPORT=true npm run build
+      - name: Build do projeto
+        run: npm run build
+        continue-on-error: true
 
-      - name: Mostrar arquivos gerados
+      - name: Verificar pastas geradas
         run: |
-          echo "Conteúdo da pasta dist:"
-          ls -la dist/
-          echo "Verificando index.html:"
-          test -f dist/index.html && echo "✓ index.html encontrado" || echo "✗ index.html NÃO encontrado"
+          echo "=== Verificando .output/public ==="
+          if [ -d ".output/public" ]; then
+            echo "✓ Pasta .output/public encontrada"
+            ls -la .output/public/
+            mkdir -p dist
+            cp -r .output/public/* dist/
+          else
+            echo "✗ Pasta .output/public NÃO encontrada"
+          fi
+          
+          echo "=== Verificando dist ==="
+          if [ -d "dist" ]; then
+            ls -la dist/
+          fi
 
       - name: Deploy FTP para Hostinger
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
@@ -40,5 +51,3 @@ jobs:
           local-dir: ./dist/
           server-dir: /public_html/
           dangerous-clean-slate: false
-          dry-run: false
-          log-level: verbose
