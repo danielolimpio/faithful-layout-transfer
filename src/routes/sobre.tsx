@@ -116,7 +116,7 @@ function Sobre() {
             width={1280}
             height={800}
             loading="lazy"
-            className="w-full aspect-[16/10] object-cover rounded-lg shadow-xl"
+            className="w-full h-auto object-contain rounded-lg shadow-xl"
           />
           <div>
             <h2 className="text-3xl font-bold mb-6">Segurança Que Você Confia</h2>
