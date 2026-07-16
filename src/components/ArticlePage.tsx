@@ -172,10 +172,12 @@ export function ArticlePage({ article }: { article: Article }) {
           </h1>
           <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
             <span className="flex items-center gap-2">
-              <span className="w-8 h-8 rounded-full bg-primary/15 text-primary grid place-items-center font-bold text-xs">
-                DO
-              </span>
-              <span className="font-medium text-foreground">Daniel Olímpio</span>
+              <img
+                src={author.photo}
+                alt={author.name}
+                className="w-8 h-8 rounded-full object-cover"
+              />
+              <span className="font-medium text-foreground">{author.name}</span>
             </span>
             <span className="flex items-center gap-1.5">
               <Calendar className="w-4 h-4" /> {article.date}
