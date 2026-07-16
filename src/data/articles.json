@@ -4,7 +4,7 @@
     "desc": "Ative a verificação em dois passos em todos os apps e evite que hackers acessem suas contas mesmo com senha comprometida",
     "category": "Segurança",
     "categoryHref": "/seguranca",
-    "date": "55 12 9825",
+    "date": "24 Julho, 2026",
     "image": "autenticacao-em-duas-etapas-para-contas-seguras",
     "blocks": [
       {
@@ -351,7 +351,7 @@
     "desc": "Veja como usar cartões virtuais descartáveis para evitar fraudes em assinaturas e compras online sem expor cartão principal",
     "category": "Pagamentos",
     "categoryHref": "/pagamentos",
-    "date": "55 12 9825",
+    "date": "29 Julho, 2026",
     "image": "cartao-virtual-para-compras-online-mais-seguras",
     "blocks": [
       {
@@ -713,7 +713,7 @@
     "desc": "Aprenda o básico sobre criptografia assimétrica e proteja comunicações e ativos digitais com conhecimento técnico essencial",
     "category": "Criptografia",
     "categoryHref": "/criptografia",
-    "date": "55 12 9825",
+    "date": "26 Julho, 2026",
     "image": "chaves-criptograficas-como-funcionam-na-pratica",
     "blocks": [
       {
@@ -1065,7 +1065,7 @@
     "desc": "Aprenda a usar carteiras físicas para armazenar criptoativos com máxima segurança e evitar perdas em hacks de exchanges",
     "category": "Criptografia",
     "categoryHref": "/criptografia",
-    "date": "55 12 9825",
+    "date": "14 Julho, 2026",
     "image": "cold-wallet-como-guardar-criptomoedas-offline",
     "blocks": [
       {
@@ -1371,7 +1371,7 @@
     "desc": "Como Proteger os Dados dos Alunos em Comunicados Online.",
     "category": "Segurança",
     "categoryHref": "/seguranca",
-    "date": "55 12 9825",
+    "date": "31 Julho, 2026",
     "image": "como-proteger-dados-de-alunos-na-comunicacao",
     "blocks": [
       {
@@ -1727,7 +1727,7 @@
     "desc": "Segurança em Camadas para Consultas Médicas Virtuais.",
     "category": "Segurança",
     "categoryHref": "/seguranca",
-    "date": "55 12 9825",
+    "date": "13 Julho, 2026",
     "image": "como-proteger-dados-medicos-em-consultas-online",
     "blocks": [
       {
@@ -2088,7 +2088,7 @@
     "desc": "Camadas de Proteção contra DNS Leaks na Navegação Anônima.",
     "category": "Privacidade",
     "categoryHref": "/privacidade",
-    "date": "55 12 9825",
+    "date": "22 Julho, 2026",
     "image": "como-proteger-navegacao-anonima-de-dns-leaks",
     "blocks": [
       {
@@ -2484,7 +2484,7 @@
     "desc": "Como Proteger a Privacidade do Casal na Comunicação Online.",
     "category": "Segurança",
     "categoryHref": "/seguranca",
-    "date": "55 12 9825",
+    "date": "02 Julho, 2026",
     "image": "comunicacao-segura-para-casais-protegendo-sua-privacidade",
     "blocks": [
       {
@@ -2835,7 +2835,7 @@
     "desc": "Entenda como a computação quântica pode quebrar cifras atuais e o que está sendo desenvolvido para proteger dados no futuro",
     "category": "Criptografia",
     "categoryHref": "/criptografia",
-    "date": "55 12 9825",
+    "date": "17 Julho, 2026",
     "image": "criptografia-pos-quantica-e-seguranca-digital",
     "blocks": [
       {
@@ -3170,7 +3170,7 @@
     "desc": "Descubra serviços de mensagem segura que oferecem criptografia ponta a ponta sem complexidade do sistema PGP tradicional",
     "category": "Criptografia",
     "categoryHref": "/criptografia",
-    "date": "55 12 9825",
+    "date": "04 Julho, 2026",
     "image": "email-criptografado-alternativas-modernas-pgp",
     "blocks": [
       {
@@ -3494,7 +3494,7 @@
     "desc": "Passo a passo para solicitar exclusão de informações pessoais em plataformas e reduzir exposição digital de forma definitiva.",
     "category": "Privacidade",
     "categoryHref": "/privacidade",
-    "date": "55 12 9825",
+    "date": "03 Julho, 2026",
     "image": "excluir-dados-pessoais-de-sites-e-redes-sociais",
     "blocks": [
       {
@@ -3822,7 +3822,7 @@
     "desc": "Como Navegar Anonimamente para Proteger Fontes Jornalísticas.",
     "category": "Privacidade",
     "categoryHref": "/privacidade",
-    "date": "55 12 9825",
+    "date": "05 Julho, 2026",
     "image": "ferramentas-para-navegacao-anonima-de-jornalistas",
     "blocks": [
       {
@@ -4102,7 +4102,7 @@
     "desc": "Entenda como mudanças nos navegadores afetam rastreamento de anúncios e o que você pode fazer para controlar seus dados.",
     "category": "Privacidade",
     "categoryHref": "/privacidade",
-    "date": "55 12 9825",
+    "date": "21 Julho, 2026",
     "image": "fim-dos-cookies-de-terceiros-e-sua-privacidade",
     "blocks": [
       {
@@ -4359,7 +4359,7 @@
     "desc": "Compare os melhores cofres de senhas do mercado e aprenda a criar credenciais fortes e únicas para cada serviço que usa",
     "category": "Ferramentas",
     "categoryHref": "/ferramentas",
-    "date": "55 12 9825",
+    "date": "09 Julho, 2026",
     "image": "gerenciador-de-senhas-qual-o-melhor-para-voce",
     "blocks": [
       {
@@ -4651,7 +4651,7 @@
     "desc": "Entenda seus direitos na LGPD e aprenda práticas essenciais para blindar informações contra vazamentos e uso indevido por empresas.",
     "category": "Segurança",
     "categoryHref": "/seguranca",
-    "date": "55 12 9825",
+    "date": "16 Julho, 2026",
     "image": "lgpd-como-proteger-seus-dados-pessoais-online",
     "blocks": [
       {
@@ -4946,7 +4946,7 @@
     "desc": "Conheça sistemas operacionais livres que priorizam anonimato e segurança sem exigir conhecimento técnico avançado para uso.",
     "category": "Privacidade",
     "categoryHref": "/privacidade",
-    "date": "55 12 9825",
+    "date": "08 Julho, 2026",
     "image": "linux-para-privacidade-distros-para-iniciantes",
     "blocks": [
       {
@@ -5260,7 +5260,7 @@
     "desc": "Guia Prático de Privacidade para Celulares Android e iPhone.",
     "category": "Privacidade",
     "categoryHref": "/privacidade",
-    "date": "55 12 9825",
+    "date": "01 Julho, 2026",
     "image": "navegacao-anonima-em-dispositivos-moveis-android-e-ios",
     "blocks": [
       {
@@ -5574,7 +5574,7 @@
     "desc": "Modo incógnito não é suficiente veja técnicas e ferramentas avançadas para reduzir rastro digital e proteger privacidade real.",
     "category": "Privacidade",
     "categoryHref": "/privacidade",
-    "date": "55 12 9825",
+    "date": "12 Julho, 2026",
     "image": "navegacao-anonima-o-que-realmente-funciona-hoje",
     "blocks": [
       {
@@ -5827,7 +5827,7 @@
     "desc": "Aprenda a navegar anonimamente em redes Wi-Fi públicas. Proteja seus dados, evite rastreamento e navegue com segurança total em conexões públicas.",
     "category": "Privacidade",
     "categoryHref": "/privacidade",
-    "date": "55 12 9825",
+    "date": "19 Julho, 2026",
     "image": "navegacao-totalmente-anonima-em-rede-publica",
     "blocks": [
       {
@@ -5853,7 +5853,7 @@
     "desc": "Conheça as principais fraudes com PIX e adote hábitos simples para realizar pagamentos instantâneos sem cair em armadilhas",
     "category": "Segurança",
     "categoryHref": "/seguranca",
-    "date": "55 12 9825",
+    "date": "10 Julho, 2026",
     "image": "pix-seguranca-como-evitar-golpes-em-transacoes",
     "blocks": [
       {
@@ -6171,7 +6171,7 @@
     "desc": "Saiba como prevenir ataques de sequestro de dados e quais passos seguir para tentar recuperar arquivos sem pagar resgate",
     "category": "Segurança",
     "categoryHref": "/seguranca",
-    "date": "55 12 9825",
+    "date": "18 Julho, 2026",
     "image": "ransomware-como-evitar-e-recuperar-seus-dados",
     "blocks": [
       {
@@ -6433,7 +6433,7 @@
     "desc": "Guia Prático de Navegação Anônima com Tor Browser.",
     "category": "Privacidade",
     "categoryHref": "/privacidade",
-    "date": "55 12 9825",
+    "date": "23 Julho, 2026",
     "image": "tor-browser-navegar-anonimamente-sem-rastros",
     "blocks": [
       {
@@ -6455,7 +6455,7 @@
     "desc": "Veja como usar cartões virtuais descartáveis para evitar fraudes em assinaturas e compras online sem expor cartão principal",
     "category": "Ferramentas",
     "categoryHref": "/ferramentas",
-    "date": "55 12 9825",
+    "date": "27 Julho, 2026",
     "image": "verifique-se-seus-dados-pessoais-vazaram-na-web",
     "blocks": [
       {
@@ -6870,7 +6870,7 @@
     "desc": "Descubra quais serviços de VPN grátis não vendem seus dados e mantêm navegação anônima sem comprometer segurança online.",
     "category": "Privacidade",
     "categoryHref": "/privacidade",
-    "date": "55 12 9825",
+    "date": "30 Julho, 2026",
     "image": "vpn-gratis-que-protege-sua-privacidade-online",
     "blocks": [
       {

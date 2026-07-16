@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { Wallet, RefreshCw, ClipboardList, Users } from "lucide-react";
+import { author } from "@/data/author";
+import { AuthorSocials } from "@/components/AuthorSocials";
 
 export const Route = createFileRoute("/sobre")({
   head: () => ({ meta: [{ title: "Sobre — Cebolla.app" }, { name: "description", content: "Cebolla.app nasceu para proteger sua identidade digital em um mundo de vigilância constante." }] }),
@@ -19,18 +21,47 @@ function Sobre() {
     <>
       <Breadcrumbs items={[{ label: "Home", to: "/" }, { label: "Página" }, { label: "Sobre" }]} />
       <div className="container mx-auto px-4 py-12">
-        <div className="aspect-[16/8] rounded-lg overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 grid place-items-center mb-12">
-          <div className="w-32 h-32 rounded-2xl bg-primary/20 border-2 border-primary grid place-items-center">
-            <div className="w-16 h-16 rounded-lg bg-primary" />
+        {/* Hero autor */}
+        <section className="grid grid-cols-1 md:grid-cols-[280px_1fr] gap-10 items-center mb-14">
+          <div className="relative">
+            <div className="absolute -inset-3 rounded-3xl bg-gradient-to-br from-primary/30 to-transparent blur-2xl" />
+            <img
+              src={author.photo}
+              alt={author.name}
+              className="relative w-full aspect-square object-cover rounded-2xl shadow-xl"
+            />
           </div>
-        </div>
+          <div>
+            <div className="inline-block cat-badge mb-3">Sobre Mim</div>
+            <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-2">
+              {author.name}
+            </h1>
+            <p className="text-lg text-primary font-semibold mb-4">{author.role}</p>
+            <p className="text-muted-foreground leading-relaxed mb-5">
+              Combinando tecnologia e criatividade para criar soluções digitais impactantes.
+            </p>
+            <AuthorSocials />
+          </div>
+        </section>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-14">
           <div>
-            <h2 className="text-2xl font-bold mb-4">Sobre</h2>
-            <p className="text-muted-foreground leading-relaxed">
-              Cebolla.app nasceu da necessidade urgente de proteger sua identidade digital em um mundo de vigilância constante. Desvendamos camadas de privacidade para você navegar livremente, sem rastros indesejados ou exposição desnecessária de seus dados pessoais.
-            </p>
+            <h2 className="text-2xl font-bold mb-4">Minha Jornada</h2>
+            <div className="space-y-4 text-muted-foreground leading-relaxed">
+              {author.fullBio.map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
+            </div>
+            <div className="flex flex-wrap gap-2 mt-5">
+              {author.skills.map((s) => (
+                <span
+                  key={s}
+                  className="text-xs font-semibold px-3 py-1.5 rounded-full bg-primary/10 text-primary border border-primary/20"
+                >
+                  {s}
+                </span>
+              ))}
+            </div>
           </div>
           <div>
             <h2 className="text-2xl font-bold mb-4">Missão & Visão</h2>

@@ -1,8 +1,8 @@
+import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import {
   Calendar,
   Clock,
-  User,
   Tag,
   Share2,
   Facebook,
@@ -10,7 +10,6 @@ import {
   Linkedin,
   Link as LinkIcon,
   CheckCircle2,
-  AlertTriangle,
   Sparkles,
   Quote,
   ArrowRight,
@@ -18,6 +17,8 @@ import {
 import { Sidebar } from "@/components/layout/Sidebar";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { articles, type Article, type Block } from "@/data/articles";
+import { author } from "@/data/author";
+import { AuthorSocials } from "@/components/AuthorSocials";
 
 /** Detects a numbered-heading pattern like "1. Something" */
 function isNumberedH3(text: string) {
@@ -171,10 +172,12 @@ export function ArticlePage({ article }: { article: Article }) {
           </h1>
           <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
             <span className="flex items-center gap-2">
-              <span className="w-8 h-8 rounded-full bg-primary/15 text-primary grid place-items-center font-bold text-xs">
-                DO
-              </span>
-              <span className="font-medium text-foreground">Daniel Olímpio</span>
+              <img
+                src={author.photo}
+                alt={author.name}
+                className="w-8 h-8 rounded-full object-cover"
+              />
+              <span className="font-medium text-foreground">{author.name}</span>
             </span>
             <span className="flex items-center gap-1.5">
               <Calendar className="w-4 h-4" /> {article.date}
@@ -245,22 +248,8 @@ export function ArticlePage({ article }: { article: Article }) {
               ))}
             </div>
 
-            <div className="mt-10 rounded-2xl border border-border/60 bg-gradient-to-br from-muted/40 to-background p-6 md:p-8 flex flex-col md:flex-row gap-6 items-start">
-              <div className="w-20 h-20 rounded-full bg-primary/15 text-primary grid place-items-center font-bold text-xl shrink-0">
-                DO
-              </div>
-              <div>
-                <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-primary font-semibold mb-1">
-                  <User className="w-3.5 h-3.5" /> Autor
-                </div>
-                <h4 className="text-xl font-bold mb-1">Daniel Olímpio</h4>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Desenvolvedor web com mais de 20 anos de experiência em segurança digital, privacidade
-                  online e design de interfaces. Especialista em transformar temas técnicos em guias
-                  acionáveis para o público brasileiro.
-                </p>
-              </div>
-            </div>
+            <AuthorCard />
+
 
             {/* Related */}
             {related.length > 0 && (
@@ -330,6 +319,57 @@ function FirstParagraphWithDropcap({ blocks }: { blocks: Block[] }) {
 function RenderOne({ b }: { b: Block; index: number }) {
   const nodes = renderBlocks([b]);
   return <>{nodes}</>;
+}
+
+function AuthorCard() {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="mt-10 rounded-2xl border border-border/60 bg-gradient-to-br from-muted/40 to-background p-6 md:p-8 flex flex-col md:flex-row gap-6 items-start">
+      <img
+        src={author.photo}
+        alt={author.name}
+        className="w-24 h-24 rounded-full object-cover shrink-0"
+      />
+      <div className="flex-1">
+        <div className="text-xs uppercase tracking-widest text-primary font-semibold mb-1">
+          Sobre o Autor
+        </div>
+        <h4 className="text-xl font-bold">{author.name}</h4>
+        <p className="text-sm text-muted-foreground mb-3">{author.role}</p>
+        <p className="text-sm text-foreground/85 leading-relaxed">
+          {author.shortBio}
+        </p>
+        {open && (
+          <div className="mt-3 space-y-3">
+            {author.fullBio.map((p, i) => (
+              <p key={i} className="text-sm text-foreground/85 leading-relaxed">
+                {p}
+              </p>
+            ))}
+            <div className="flex flex-wrap gap-2 pt-1">
+              {author.skills.map((s) => (
+                <span
+                  key={s}
+                  className="text-xs font-semibold px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20"
+                >
+                  {s}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+        <div className="mt-4 flex flex-wrap items-center gap-4">
+          <button
+            onClick={() => setOpen((v) => !v)}
+            className="text-sm font-semibold text-primary hover:underline"
+          >
+            {open ? "Ver Menos" : "Ver Mais"}
+          </button>
+          <AuthorSocials />
+        </div>
+      </div>
+    </div>
+  );
 }
 
 // Named for style parity with future MDX exports
