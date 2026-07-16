@@ -1,8 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { Wallet, RefreshCw, ClipboardList, Users } from "lucide-react";
 import { author } from "@/data/author";
 import { AuthorSocials } from "@/components/AuthorSocials";
+import securityImg from "@/assets/security-trust.jpg.asset.json";
 
 export const Route = createFileRoute("/sobre")({
   head: () => ({ meta: [{ title: "Sobre — Cebolla.app" }, { name: "description", content: "Cebolla.app nasceu para proteger sua identidade digital em um mundo de vigilância constante." }] }),
@@ -16,7 +18,26 @@ const features = [
   { icon: Users, title: "Navegação Anônima", text: "Proteja sua identidade com TOR e VPNs para navegar sem deixar rastros digitais na internet." },
 ];
 
+const trustTabs = {
+  privacidade: {
+    label: "Privacidade",
+    text: "Protegemos sua identidade digital com criptografia de ponta e ferramentas de anonimato. Navegue sem rastros, evite vigilância corporativa e mantenha seus dados pessoais longe de terceiros não autorizados em qualquer dispositivo conectado. Cada camada do sistema é pensada para minimizar exposição, respeitar o consentimento e devolver ao usuário o controle total sobre suas próprias informações.",
+  },
+  transparencia: {
+    label: "Transparência",
+    text: "Acreditamos que confiança se constrói com clareza. Documentamos abertamente como coletamos, armazenamos e processamos qualquer informação, sem letras miúdas ou termos ambíguos. Publicamos guias, relatórios técnicos e explicações acessíveis para que cada usuário entenda exatamente o que acontece nos bastidores. Sem promessas vazias, apenas processos verificáveis e comunicação honesta em cada etapa da jornada digital.",
+  },
+  seguranca: {
+    label: "Segurança",
+    text: "Aplicamos as melhores práticas do mercado: criptografia forte, autenticação multifator, monitoramento contínuo de ameaças e auditorias periódicas de infraestrutura. Cada recomendação publicada aqui passa por análise criteriosa, testes reais e revisão técnica antes de chegar até você. Segurança não é um recurso adicional, é o alicerce sobre o qual construímos toda a experiência do Cebolla.app.",
+  },
+} as const;
+
+type TrustKey = keyof typeof trustTabs;
+
 function Sobre() {
+  const [tab, setTab] = useState<TrustKey>("privacidade");
+
   return (
     <>
       <Breadcrumbs items={[{ label: "Home", to: "/" }, { label: "Página" }, { label: "Sobre" }]} />
@@ -64,10 +85,24 @@ function Sobre() {
             </div>
           </div>
           <div>
-            <h2 className="text-2xl font-bold mb-4">Missão & Visão</h2>
-            <p className="text-muted-foreground leading-relaxed">
-              Nossa missão é democratizar o acesso à privacidade digital com ferramentas práticas e educação acessível. Visamos um futuro onde cada pessoa controle seus dados, escolha seu nível de anonimato e navegue na internet sem medo de vigilância ou exploração comercial.
-            </p>
+            <h2 className="text-2xl font-bold mb-4">Missão</h2>
+            <div className="space-y-4 text-muted-foreground leading-relaxed mb-6">
+              <p>
+                Nossa missão é democratizar o acesso à privacidade digital, oferecendo ferramentas práticas, conteúdo educativo e recomendações confiáveis para pessoas de todos os níveis técnicos. Acreditamos que proteger dados pessoais não deveria ser um privilégio de especialistas — deve ser um direito acessível a qualquer usuário conectado.
+              </p>
+              <p>
+                Trabalhamos para simplificar conceitos complexos de segurança, transformando técnicas avançadas em passos claros que qualquer pessoa possa aplicar no dia a dia, seja no celular, no computador ou nas redes sociais.
+              </p>
+            </div>
+            <h2 className="text-2xl font-bold mb-4">Visão</h2>
+            <div className="space-y-4 text-muted-foreground leading-relaxed">
+              <p>
+                Visamos um futuro onde cada pessoa controle seus dados, escolha seu nível de anonimato e navegue na internet sem medo de vigilância ou exploração comercial. Queremos ser referência em conteúdo independente sobre privacidade, criptografia e segurança digital no Brasil.
+              </p>
+              <p>
+                Enxergamos um ecossistema digital mais ético, onde tecnologia e liberdade caminham juntas, capacitando indivíduos, criadores e pequenos negócios a operarem com autonomia, transparência e proteção real contra abusos de dados.
+              </p>
+            </div>
           </div>
         </div>
 
@@ -84,17 +119,32 @@ function Sobre() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-          <div className="aspect-[16/10] bg-gradient-to-br from-teal-900 to-slate-900 rounded-lg" />
+          <img
+            src={securityImg.url}
+            alt="Segurança digital com escudo e cadeado"
+            width={1280}
+            height={800}
+            loading="lazy"
+            className="w-full aspect-[16/10] object-cover rounded-lg shadow-xl"
+          />
           <div>
             <h2 className="text-3xl font-bold mb-6">Segurança Que Você Confia</h2>
             <div className="flex gap-2 mb-6">
-              <button className="bg-primary text-primary-foreground font-semibold px-5 py-2.5 rounded text-sm">Privacidade</button>
-              <button className="bg-muted text-muted-foreground font-semibold px-5 py-2.5 rounded text-sm">Transparência</button>
-              <button className="bg-muted text-muted-foreground font-semibold px-5 py-2.5 rounded text-sm">Segurança</button>
+              {(Object.keys(trustTabs) as TrustKey[]).map((k) => (
+                <button
+                  key={k}
+                  onClick={() => setTab(k)}
+                  className={`font-semibold px-5 py-2.5 rounded text-sm transition-colors ${
+                    tab === k
+                      ? "bg-primary text-primary-foreground"
+                      : "bg-muted text-muted-foreground hover:bg-muted/70"
+                  }`}
+                >
+                  {trustTabs[k].label}
+                </button>
+              ))}
             </div>
-            <p className="text-muted-foreground leading-relaxed">
-              Protegemos sua identidade digital com criptografia de ponta e ferramentas de anonimato. Navegue sem rastros, evite vigilância corporativa e mantenha seus dados pessoais longe de terceiros não autorizados em qualquer dispositivo conectado.
-            </p>
+            <p className="text-muted-foreground leading-relaxed">{trustTabs[tab].text}</p>
           </div>
         </div>
       </div>
