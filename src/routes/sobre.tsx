@@ -86,24 +86,15 @@ function Sobre() {
           </div>
           <div>
             <h2 className="text-2xl font-bold mb-4">Missão</h2>
-            <div className="space-y-4 text-muted-foreground leading-relaxed mb-6">
-              <p>
-                Nossa missão é democratizar o acesso à privacidade digital, oferecendo ferramentas práticas, conteúdo educativo e recomendações confiáveis para pessoas de todos os níveis técnicos. Acreditamos que proteger dados pessoais não deveria ser um privilégio de especialistas — deve ser um direito acessível a qualquer usuário conectado.
-              </p>
-              <p>
-                Trabalhamos para simplificar conceitos complexos de segurança, transformando técnicas avançadas em passos claros que qualquer pessoa possa aplicar no dia a dia, seja no celular, no computador ou nas redes sociais.
-              </p>
-            </div>
+            <p className="text-muted-foreground leading-relaxed mb-6">
+              Democratizar o acesso à privacidade digital com ferramentas práticas e conteúdo educativo, transformando conceitos complexos de segurança em passos claros que qualquer pessoa pode aplicar no dia a dia.
+            </p>
             <h2 className="text-2xl font-bold mb-4">Visão</h2>
-            <div className="space-y-4 text-muted-foreground leading-relaxed">
-              <p>
-                Visamos um futuro onde cada pessoa controle seus dados, escolha seu nível de anonimato e navegue na internet sem medo de vigilância ou exploração comercial. Queremos ser referência em conteúdo independente sobre privacidade, criptografia e segurança digital no Brasil.
-              </p>
-              <p>
-                Enxergamos um ecossistema digital mais ético, onde tecnologia e liberdade caminham juntas, capacitando indivíduos, criadores e pequenos negócios a operarem com autonomia, transparência e proteção real contra abusos de dados.
-              </p>
-            </div>
+            <p className="text-muted-foreground leading-relaxed">
+              Ser referência em conteúdo independente sobre privacidade e segurança digital, construindo um ecossistema mais ético onde tecnologia e liberdade caminham juntas.
+            </p>
           </div>
+
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-14">
