@@ -1,6 +1,19 @@
 import { Link } from "@tanstack/react-router";
 import { Facebook, Twitter, Youtube, Send, User, Mail, Calendar } from "lucide-react";
 import logo from "@/assets/cebolla-logo.png";
+import { articles } from "@/data/articles";
+
+const MONTHS: Record<string, number> = {
+  janeiro: 0, fevereiro: 1, marco: 2, "março": 2, abril: 3, maio: 4, junho: 5,
+  julho: 6, agosto: 7, setembro: 8, outubro: 9, novembro: 10, dezembro: 11,
+};
+function parseDate(d: string): number {
+  const m = d.toLowerCase().replace(",", "").match(/(\d+)\s+([a-zç]+)\s+(\d{4})/);
+  if (!m) return 0;
+  return new Date(Number(m[3]), MONTHS[m[2]] ?? 0, Number(m[1])).getTime();
+}
+const recentPosts = [...articles].sort((a, b) => parseDate(b.date) - parseDate(a.date)).slice(0, 2);
+
 
 const cats1 = [
   { to: "/privacidade", label: "Privacidade" },
