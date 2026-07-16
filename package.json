@@ -6,6 +6,9 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
+    "postbuild": "node scripts/finalize-static-build.mjs",
+    "build:static": "STATIC_EXPORT=true npm run build",
+    "preview:static": "npm run build:static && vite preview --outDir dist",
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "lint": "eslint .",

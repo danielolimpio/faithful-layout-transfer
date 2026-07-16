@@ -20,26 +20,21 @@ jobs:
       - name: Instalar dependências
         run: npm install
 
-      - name: Build do projeto
-        run: npm run build
-        continue-on-error: true
+      - name: Build estático do projeto
+        run: npm run build:static
 
-      - name: Verificar pastas geradas
+      - name: Verificar build estático
         run: |
-          echo "=== Verificando .output/public ==="
-          if [ -d ".output/public" ]; then
-            echo "✓ Pasta .output/public encontrada"
-            ls -la .output/public/
-            mkdir -p dist
-            cp -r .output/public/* dist/
-          else
-            echo "✗ Pasta .output/public NÃO encontrada"
+          if [ ! -f "dist/index.html" ]; then
+            echo "ERRO: dist/index.html não foi gerado. Deploy cancelado."
+            echo "Conteúdo de dist:"
+            ls -la dist || true
+            echo "Conteúdo de .output/public:"
+            ls -la .output/public || true
+            exit 1
           fi
-          
-          echo "=== Verificando dist ==="
-          if [ -d "dist" ]; then
-            ls -la dist/
-          fi
+          echo "Build estático validado em dist/:"
+          ls -la dist
 
       - name: Deploy FTP para Hostinger
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
