@@ -9,12 +9,15 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TermosRouteImport } from './routes/termos'
 import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as SegurancaRouteImport } from './routes/seguranca'
+import { Route as PrivacidadePoliticaRouteImport } from './routes/privacidade-politica'
 import { Route as PrivacidadeRouteImport } from './routes/privacidade'
 import { Route as PagamentosRouteImport } from './routes/pagamentos'
 import { Route as FerramentasRouteImport } from './routes/ferramentas'
 import { Route as CriptografiaRouteImport } from './routes/criptografia'
+import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as ContatoRouteImport } from './routes/contato'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SegurancaIndexRouteImport } from './routes/seguranca.index'
@@ -28,6 +31,11 @@ import { Route as PagamentosSlugRouteImport } from './routes/pagamentos.$slug'
 import { Route as FerramentasSlugRouteImport } from './routes/ferramentas.$slug'
 import { Route as CriptografiaSlugRouteImport } from './routes/criptografia.$slug'
 
+const TermosRoute = TermosRouteImport.update({
+  id: '/termos',
+  path: '/termos',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SobreRoute = SobreRouteImport.update({
   id: '/sobre',
   path: '/sobre',
@@ -36,6 +44,11 @@ const SobreRoute = SobreRouteImport.update({
 const SegurancaRoute = SegurancaRouteImport.update({
   id: '/seguranca',
   path: '/seguranca',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacidadePoliticaRoute = PrivacidadePoliticaRouteImport.update({
+  id: '/privacidade-politica',
+  path: '/privacidade-politica',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacidadeRoute = PrivacidadeRouteImport.update({
@@ -56,6 +69,11 @@ const FerramentasRoute = FerramentasRouteImport.update({
 const CriptografiaRoute = CriptografiaRouteImport.update({
   id: '/criptografia',
   path: '/criptografia',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CookiesRoute = CookiesRouteImport.update({
+  id: '/cookies',
+  path: '/cookies',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContatoRoute = ContatoRouteImport.update({
@@ -122,12 +140,15 @@ const CriptografiaSlugRoute = CriptografiaSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/contato': typeof ContatoRoute
+  '/cookies': typeof CookiesRoute
   '/criptografia': typeof CriptografiaRouteWithChildren
   '/ferramentas': typeof FerramentasRouteWithChildren
   '/pagamentos': typeof PagamentosRouteWithChildren
   '/privacidade': typeof PrivacidadeRouteWithChildren
+  '/privacidade-politica': typeof PrivacidadePoliticaRoute
   '/seguranca': typeof SegurancaRouteWithChildren
   '/sobre': typeof SobreRoute
+  '/termos': typeof TermosRoute
   '/criptografia/$slug': typeof CriptografiaSlugRoute
   '/ferramentas/$slug': typeof FerramentasSlugRoute
   '/pagamentos/$slug': typeof PagamentosSlugRoute
@@ -142,7 +163,10 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/contato': typeof ContatoRoute
+  '/cookies': typeof CookiesRoute
+  '/privacidade-politica': typeof PrivacidadePoliticaRoute
   '/sobre': typeof SobreRoute
+  '/termos': typeof TermosRoute
   '/criptografia/$slug': typeof CriptografiaSlugRoute
   '/ferramentas/$slug': typeof FerramentasSlugRoute
   '/pagamentos/$slug': typeof PagamentosSlugRoute
@@ -158,12 +182,15 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/contato': typeof ContatoRoute
+  '/cookies': typeof CookiesRoute
   '/criptografia': typeof CriptografiaRouteWithChildren
   '/ferramentas': typeof FerramentasRouteWithChildren
   '/pagamentos': typeof PagamentosRouteWithChildren
   '/privacidade': typeof PrivacidadeRouteWithChildren
+  '/privacidade-politica': typeof PrivacidadePoliticaRoute
   '/seguranca': typeof SegurancaRouteWithChildren
   '/sobre': typeof SobreRoute
+  '/termos': typeof TermosRoute
   '/criptografia/$slug': typeof CriptografiaSlugRoute
   '/ferramentas/$slug': typeof FerramentasSlugRoute
   '/pagamentos/$slug': typeof PagamentosSlugRoute
@@ -180,12 +207,15 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/contato'
+    | '/cookies'
     | '/criptografia'
     | '/ferramentas'
     | '/pagamentos'
     | '/privacidade'
+    | '/privacidade-politica'
     | '/seguranca'
     | '/sobre'
+    | '/termos'
     | '/criptografia/$slug'
     | '/ferramentas/$slug'
     | '/pagamentos/$slug'
@@ -200,7 +230,10 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/contato'
+    | '/cookies'
+    | '/privacidade-politica'
     | '/sobre'
+    | '/termos'
     | '/criptografia/$slug'
     | '/ferramentas/$slug'
     | '/pagamentos/$slug'
@@ -215,12 +248,15 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/contato'
+    | '/cookies'
     | '/criptografia'
     | '/ferramentas'
     | '/pagamentos'
     | '/privacidade'
+    | '/privacidade-politica'
     | '/seguranca'
     | '/sobre'
+    | '/termos'
     | '/criptografia/$slug'
     | '/ferramentas/$slug'
     | '/pagamentos/$slug'
@@ -236,16 +272,26 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ContatoRoute: typeof ContatoRoute
+  CookiesRoute: typeof CookiesRoute
   CriptografiaRoute: typeof CriptografiaRouteWithChildren
   FerramentasRoute: typeof FerramentasRouteWithChildren
   PagamentosRoute: typeof PagamentosRouteWithChildren
   PrivacidadeRoute: typeof PrivacidadeRouteWithChildren
+  PrivacidadePoliticaRoute: typeof PrivacidadePoliticaRoute
   SegurancaRoute: typeof SegurancaRouteWithChildren
   SobreRoute: typeof SobreRoute
+  TermosRoute: typeof TermosRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/termos': {
+      id: '/termos'
+      path: '/termos'
+      fullPath: '/termos'
+      preLoaderRoute: typeof TermosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sobre': {
       id: '/sobre'
       path: '/sobre'
@@ -258,6 +304,13 @@ declare module '@tanstack/react-router' {
       path: '/seguranca'
       fullPath: '/seguranca'
       preLoaderRoute: typeof SegurancaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacidade-politica': {
+      id: '/privacidade-politica'
+      path: '/privacidade-politica'
+      fullPath: '/privacidade-politica'
+      preLoaderRoute: typeof PrivacidadePoliticaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacidade': {
@@ -286,6 +339,13 @@ declare module '@tanstack/react-router' {
       path: '/criptografia'
       fullPath: '/criptografia'
       preLoaderRoute: typeof CriptografiaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cookies': {
+      id: '/cookies'
+      path: '/cookies'
+      fullPath: '/cookies'
+      preLoaderRoute: typeof CookiesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contato': {
@@ -448,12 +508,15 @@ const SegurancaRouteWithChildren = SegurancaRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ContatoRoute: ContatoRoute,
+  CookiesRoute: CookiesRoute,
   CriptografiaRoute: CriptografiaRouteWithChildren,
   FerramentasRoute: FerramentasRouteWithChildren,
   PagamentosRoute: PagamentosRouteWithChildren,
   PrivacidadeRoute: PrivacidadeRouteWithChildren,
+  PrivacidadePoliticaRoute: PrivacidadePoliticaRoute,
   SegurancaRoute: SegurancaRouteWithChildren,
   SobreRoute: SobreRoute,
+  TermosRoute: TermosRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
