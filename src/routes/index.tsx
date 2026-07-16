@@ -382,7 +382,7 @@ function Home() {
 
       {/* NOVIDADES */}
       <section className="bg-muted/30 py-12">
-        <div className="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-10">
+        <div className="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-10 max-w-[1400px]">
           <div>
             <div className="flex items-center gap-4 mb-8">
               <SectionTitle>Novidades</SectionTitle>
