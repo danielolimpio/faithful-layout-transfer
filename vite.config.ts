@@ -15,6 +15,7 @@ export default defineConfig({
     server: { entry: "server" },
     ...(isStaticExport
       ? {
+          spa: { enabled: false },
           prerender: {
             enabled: true,
             crawlLinks: true,
@@ -28,6 +29,11 @@ export default defineConfig({
     ? {
         nitro: {
           preset: "static",
+          output: {
+            dir: ".output",
+            publicDir: "dist",
+            serverDir: ".output/server",
+          },
         },
       }
     : {}),
