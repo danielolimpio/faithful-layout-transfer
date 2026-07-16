@@ -1,6 +1,19 @@
 import { Link } from "@tanstack/react-router";
 import { Facebook, Twitter, Youtube, Send, User, Mail, Calendar } from "lucide-react";
 import logo from "@/assets/cebolla-logo.png";
+import { articles } from "@/data/articles";
+
+const MONTHS: Record<string, number> = {
+  janeiro: 0, fevereiro: 1, marco: 2, "março": 2, abril: 3, maio: 4, junho: 5,
+  julho: 6, agosto: 7, setembro: 8, outubro: 9, novembro: 10, dezembro: 11,
+};
+function parseDate(d: string): number {
+  const m = d.toLowerCase().replace(",", "").match(/(\d+)\s+([a-zç]+)\s+(\d{4})/);
+  if (!m) return 0;
+  return new Date(Number(m[3]), MONTHS[m[2]] ?? 0, Number(m[1])).getTime();
+}
+const recentPosts = [...articles].sort((a, b) => parseDate(b.date) - parseDate(a.date)).slice(0, 2);
+
 
 const cats1 = [
   { to: "/privacidade", label: "Privacidade" },
@@ -55,19 +68,31 @@ export function Footer() {
         <div>
           <h4 className="text-lg font-bold mb-6 relative after:content-[''] after:absolute after:left-0 after:-bottom-2 after:w-16 after:h-[2px] after:bg-primary">Posts Recentes</h4>
           <ul className="mt-8 space-y-5">
-            {[
-              { t: "Our Commitment To COVID-19 Vaccine" },
-              { t: "A More Helpful Chrome, Throughout Your" },
-            ].map((p, i) => (
-              <li key={i} className="flex gap-3">
-                <div className="w-20 h-16 bg-white/10 shrink-0 rounded grid place-items-center text-xs text-footer-muted">160x160</div>
-                <div className="text-sm">
-                  <div className="flex items-center gap-1 text-xs text-footer-muted mb-1"><Calendar className="w-3 h-3" /> 10 Fevereiro 2026</div>
-                  <p className="font-semibold leading-snug">{p.t}</p>
-                </div>
+            {recentPosts.map((p) => (
+              <li key={p.slug}>
+                <Link
+                  to={`${p.categoryHref}/$slug`}
+                  params={{ slug: p.slug }}
+                  className="flex gap-3 group"
+                >
+                  <img
+                    src={p.cover}
+                    alt={p.title}
+                    className="w-20 h-16 shrink-0 rounded object-cover"
+                  />
+                  <div className="text-sm">
+                    <div className="flex items-center gap-1 text-xs text-footer-muted mb-1">
+                      <Calendar className="w-3 h-3" /> {p.date}
+                    </div>
+                    <p className="font-semibold leading-snug group-hover:text-primary">
+                      {p.title}
+                    </p>
+                  </div>
+                </Link>
               </li>
             ))}
           </ul>
+
         </div>
 
         <div>
