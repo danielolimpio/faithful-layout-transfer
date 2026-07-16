@@ -1,7 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import { Facebook, Twitter, Instagram, Youtube, Linkedin, Calendar } from "lucide-react";
+import { Calendar } from "lucide-react";
 import logo from "@/assets/cebolla-logo.png";
 import { articles } from "@/data/articles";
+import { author } from "@/data/author";
+import { AuthorSocials } from "@/components/AuthorSocials";
 
 export function Sidebar() {
   return (
@@ -10,23 +12,26 @@ export function Sidebar() {
         <div className="inline-block cat-badge mb-4">Sobre Mim</div>
         <div className="h-px bg-primary -mt-1 mb-6" />
         <div className="flex items-center gap-4 mb-4">
-          <div className="w-16 h-16 rounded-full bg-muted overflow-hidden shrink-0 grid place-items-center text-muted-foreground text-xs">DO</div>
+          <img
+            src={author.photo}
+            alt={author.name}
+            className="w-16 h-16 rounded-full object-cover shrink-0"
+          />
           <div>
-            <h4 className="font-bold">Daniel Olímpio</h4>
-            <p className="text-sm text-muted-foreground">Desenvolvedor Web</p>
-            <div className="flex gap-2 mt-1 text-muted-foreground">
-              <a href="#"><Facebook className="w-3.5 h-3.5" /></a>
-              <a href="#"><Twitter className="w-3.5 h-3.5" /></a>
-              <a href="#"><Instagram className="w-3.5 h-3.5" /></a>
-              <a href="#"><Youtube className="w-3.5 h-3.5" /></a>
-              <a href="#"><Linkedin className="w-3.5 h-3.5" /></a>
-            </div>
+            <h4 className="font-bold">{author.name}</h4>
+            <p className="text-sm text-muted-foreground">{author.role}</p>
           </div>
         </div>
         <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-          Com mais de 20 anos de atuação no mercado digital, sou especializado em desenvolvimento web e design, unindo performance, usabilidade e identidade visual em cada projeto.
+          {author.shortBio}
         </p>
-        <button className="bg-primary text-primary-foreground font-semibold px-5 py-2.5 rounded text-sm hover:bg-primary/90">Saber Mais</button>
+        <AuthorSocials className="mb-4" />
+        <Link
+          to="/sobre"
+          className="inline-block bg-primary text-primary-foreground font-semibold px-5 py-2.5 rounded text-sm hover:bg-primary/90"
+        >
+          Saber Mais
+        </Link>
       </div>
 
       <div>
