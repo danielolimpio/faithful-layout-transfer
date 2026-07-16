@@ -18,16 +18,8 @@ function Contato() {
     <>
       <Breadcrumbs items={[{ label: "Home", to: "/" }, { label: "Página" }, { label: "Contato" }]} />
       <div className="container mx-auto px-4 py-12">
-        <div className="rounded-lg overflow-hidden border border-border/60 mb-0">
-          <iframe
-            title="Localização Cebolla"
-            src="https://www.google.com/maps?q=Av.+Julia+Freire,+Jo%C3%A3o+Pessoa,+PB&output=embed"
-            className="w-full h-[460px] border-0"
-            loading="lazy"
-          />
-        </div>
+        <div className="bg-card rounded-lg border border-border/60 shadow-lg p-8 md:p-10">
 
-        <div className="bg-card rounded-lg border border-border/60 -mt-20 mx-4 md:mx-12 relative shadow-lg p-8 md:p-10">
           <h2 className="text-xl font-bold mb-6 border-b border-border pb-4">Entre Em Contato Conosco!</h2>
           <form className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
