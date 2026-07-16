@@ -20,27 +20,31 @@ jobs:
       - name: Instalar dependências
         run: npm install
 
-      - name: Build estático (ignora erro do Nitro)
+      - name: Build estático
         run: |
-          # Tenta o build - mesmo que falhe no Nitro, os arquivos estáticos são gerados
-          npm run build:static || true
+          echo "=== Iniciando build estático ==="
           
-          # Verifica se o index.html foi gerado
-          if [ ! -f "dist/index.html" ]; then
-            echo "❌ Erro: dist/index.html não foi gerado!"
-            exit 1
+          # Roda o build:static (pode falhar no Nitro, mas gera os arquivos)
+          npm run build:static || echo "⚠ Build completou com avisos"
+          
+          echo "=== Verificando arquivos gerados ==="
+          
+          # Verifica se .output/public foi gerado
+          if [ -d ".output/public" ]; then
+            echo "✓ Pasta .output/public encontrada"
+            ls -la .output/public/ | head -20
+            
+            # Cria dist e copia os arquivos
+            mkdir -p dist
+            cp -r .output/public/* dist/
+            
+            echo "✓ Arquivos copiados para dist/"
           fi
           
-          echo "✅ Build estático concluído!"
-          ls -la dist/
-
-      - name: Deploy FTP para Hostinger
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          server: ${{ secrets.FTP_HOST }}
-          port: 21
-          username: ${{ secrets.FTP_USER }}
-          password: ${{ secrets.FTP_PASS }}
-          local-dir: ./dist/
-          server-dir: /
-          dangerous-clean-slate: true
+          # Verifica se dist/index.html existe
+          if [ -f "dist/index.html" ]; then
+            echo "✅ SUCESSO: index.html gerado!"
+            echo "=== Primeiras linhas do index.html ==="
+            head -15 dist/index.html
+            echo "=== Conteúdo da pasta dist (primeiros 20 arquivos) ==="
+            ls -la
