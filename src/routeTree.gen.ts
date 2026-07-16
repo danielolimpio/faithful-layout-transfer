@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TermosRouteImport } from './routes/termos'
 import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as SegurancaRouteImport } from './routes/seguranca'
 import { Route as PrivacidadePoliticaRouteImport } from './routes/privacidade-politica'
@@ -29,6 +30,11 @@ import { Route as PagamentosSlugRouteImport } from './routes/pagamentos.$slug'
 import { Route as FerramentasSlugRouteImport } from './routes/ferramentas.$slug'
 import { Route as CriptografiaSlugRouteImport } from './routes/criptografia.$slug'
 
+const TermosRoute = TermosRouteImport.update({
+  id: '/termos',
+  path: '/termos',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SobreRoute = SobreRouteImport.update({
   id: '/sobre',
   path: '/sobre',
@@ -135,6 +141,7 @@ export interface FileRoutesByFullPath {
   '/privacidade-politica': typeof PrivacidadePoliticaRoute
   '/seguranca': typeof SegurancaRouteWithChildren
   '/sobre': typeof SobreRoute
+  '/termos': typeof TermosRoute
   '/criptografia/$slug': typeof CriptografiaSlugRoute
   '/ferramentas/$slug': typeof FerramentasSlugRoute
   '/pagamentos/$slug': typeof PagamentosSlugRoute
@@ -151,6 +158,7 @@ export interface FileRoutesByTo {
   '/contato': typeof ContatoRoute
   '/privacidade-politica': typeof PrivacidadePoliticaRoute
   '/sobre': typeof SobreRoute
+  '/termos': typeof TermosRoute
   '/criptografia/$slug': typeof CriptografiaSlugRoute
   '/ferramentas/$slug': typeof FerramentasSlugRoute
   '/pagamentos/$slug': typeof PagamentosSlugRoute
@@ -173,6 +181,7 @@ export interface FileRoutesById {
   '/privacidade-politica': typeof PrivacidadePoliticaRoute
   '/seguranca': typeof SegurancaRouteWithChildren
   '/sobre': typeof SobreRoute
+  '/termos': typeof TermosRoute
   '/criptografia/$slug': typeof CriptografiaSlugRoute
   '/ferramentas/$slug': typeof FerramentasSlugRoute
   '/pagamentos/$slug': typeof PagamentosSlugRoute
@@ -196,6 +205,7 @@ export interface FileRouteTypes {
     | '/privacidade-politica'
     | '/seguranca'
     | '/sobre'
+    | '/termos'
     | '/criptografia/$slug'
     | '/ferramentas/$slug'
     | '/pagamentos/$slug'
@@ -212,6 +222,7 @@ export interface FileRouteTypes {
     | '/contato'
     | '/privacidade-politica'
     | '/sobre'
+    | '/termos'
     | '/criptografia/$slug'
     | '/ferramentas/$slug'
     | '/pagamentos/$slug'
@@ -233,6 +244,7 @@ export interface FileRouteTypes {
     | '/privacidade-politica'
     | '/seguranca'
     | '/sobre'
+    | '/termos'
     | '/criptografia/$slug'
     | '/ferramentas/$slug'
     | '/pagamentos/$slug'
@@ -255,10 +267,18 @@ export interface RootRouteChildren {
   PrivacidadePoliticaRoute: typeof PrivacidadePoliticaRoute
   SegurancaRoute: typeof SegurancaRouteWithChildren
   SobreRoute: typeof SobreRoute
+  TermosRoute: typeof TermosRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/termos': {
+      id: '/termos'
+      path: '/termos'
+      fullPath: '/termos'
+      preLoaderRoute: typeof TermosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sobre': {
       id: '/sobre'
       path: '/sobre'
@@ -475,6 +495,7 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacidadePoliticaRoute: PrivacidadePoliticaRoute,
   SegurancaRoute: SegurancaRouteWithChildren,
   SobreRoute: SobreRoute,
+  TermosRoute: TermosRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
