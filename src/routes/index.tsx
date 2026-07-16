@@ -256,9 +256,9 @@ function Home() {
             </ul>
             <div className="relative rounded-lg overflow-hidden bg-gradient-to-br from-slate-800 to-slate-900 text-white p-5 text-center">
               <p className="text-sm mb-3 opacity-90">Crie seu site</p>
-              <button className="bg-primary text-primary-foreground font-semibold px-5 py-2 rounded text-sm">
+              <a href="https://danielolimpio.com/" target="_blank" rel="noopener noreferrer" className="inline-block bg-primary text-primary-foreground font-semibold px-5 py-2 rounded text-sm hover:bg-primary/90">
                 Saber Mais
-              </button>
+              </a>
             </div>
           </div>
         </div>
