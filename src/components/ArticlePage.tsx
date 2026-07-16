@@ -248,22 +248,8 @@ export function ArticlePage({ article }: { article: Article }) {
               ))}
             </div>
 
-            <div className="mt-10 rounded-2xl border border-border/60 bg-gradient-to-br from-muted/40 to-background p-6 md:p-8 flex flex-col md:flex-row gap-6 items-start">
-              <div className="w-20 h-20 rounded-full bg-primary/15 text-primary grid place-items-center font-bold text-xl shrink-0">
-                DO
-              </div>
-              <div>
-                <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-primary font-semibold mb-1">
-                  <User className="w-3.5 h-3.5" /> Autor
-                </div>
-                <h4 className="text-xl font-bold mb-1">Daniel Olímpio</h4>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Desenvolvedor web com mais de 20 anos de experiência em segurança digital, privacidade
-                  online e design de interfaces. Especialista em transformar temas técnicos em guias
-                  acionáveis para o público brasileiro.
-                </p>
-              </div>
-            </div>
+            <AuthorCard />
+
 
             {/* Related */}
             {related.length > 0 && (
