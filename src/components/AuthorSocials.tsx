@@ -19,7 +19,7 @@ export function AuthorSocials({ className = "" }: { className?: string }) {
           target="_blank"
           rel="noopener noreferrer"
           aria-label={label}
-          className="w-9 h-9 grid place-items-center rounded-full bg-muted text-foreground hover:bg-primary hover:text-primary-foreground transition"
+          className="w-9 h-9 grid place-items-center rounded-full bg-slate-800 text-white hover:bg-primary hover:text-primary-foreground transition"
         >
           <Icon className="w-4 h-4" />
         </a>

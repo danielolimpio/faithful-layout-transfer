@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { Facebook, Twitter, Youtube, Send, User, Mail, Calendar } from "lucide-react";
+import { Send, User, Mail, Calendar } from "lucide-react";
+import { AuthorSocials } from "@/components/AuthorSocials";
 import logo from "@/assets/cebolla-logo.png";
 import { articles } from "@/data/articles";
 
@@ -100,14 +101,10 @@ export function Footer() {
           <p className="text-sm text-footer-muted leading-relaxed mb-6">
             Proteja seus dados e navegue com tranquilidade: descubra práticas de privacidade digital, evite ameaças online e fortaleça sua segurança em cada acesso diário seguro.
           </p>
-          <div className="flex gap-2">
-            <a href="#" className="w-10 h-10 grid place-items-center rounded bg-[#3b5998] hover:opacity-90"><Facebook className="w-4 h-4" /></a>
-            <a href="#" className="w-10 h-10 grid place-items-center rounded bg-[#1da1f2] hover:opacity-90"><Twitter className="w-4 h-4" /></a>
-            <a href="#" className="w-10 h-10 grid place-items-center rounded bg-[#1769ff] hover:opacity-90 text-xs font-bold">Bē</a>
-            <a href="#" className="w-10 h-10 grid place-items-center rounded bg-[#ff0000] hover:opacity-90"><Youtube className="w-4 h-4" /></a>
-          </div>
+          <AuthorSocials />
         </div>
       </div>
+
 
       <div className="border-t border-white/10">
         <div className="container mx-auto px-4 py-5 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-footer-muted">

@@ -202,7 +202,7 @@ export function ArticlePage({ article }: { article: Article }) {
 
       {/* BODY */}
       <section className="bg-background py-14">
-        <div className="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_340px] gap-12 max-w-6xl">
+        <div className="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_340px] gap-12 max-w-[1400px]">
           <article>
             {/* Share rail */}
             <div className="flex items-center gap-3 mb-8 pb-6 border-b border-border/60">

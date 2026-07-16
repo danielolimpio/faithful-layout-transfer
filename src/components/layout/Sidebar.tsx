@@ -38,7 +38,7 @@ export function Sidebar() {
         <div className="inline-block cat-badge mb-4">Últimos Posts</div>
         <div className="h-px bg-primary -mt-1 mb-6" />
         <ul className="space-y-5">
-          {articles.slice(0, 4).map((a) => (
+          {articles.slice(0, 8).map((a) => (
             <li key={a.slug}>
               <Link to={`${a.categoryHref}/$slug`} params={{ slug: a.slug }} className="flex gap-3 group">
                 <img src={a.cover} alt={a.title} className="w-20 h-16 shrink-0 rounded object-cover" />
